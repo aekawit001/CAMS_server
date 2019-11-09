@@ -7,9 +7,9 @@ class Showlocation_model extends CI_Model {
     function get_all($keyword){
         $this->db->select("room.roomID,building.buildingName");
         $this->db->from($this->tbl_name);
-        $this->db->join('room','building.buildingID = room.buildingID');
+        $this->db->join('building','building.buildingID = room.buildingID');
 
-        $this->db->like('room',$keyword);
+        $this->db->like('roomID',$keyword);
         $result = $this->db->get();
         return $result->result();
 

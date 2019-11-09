@@ -11,10 +11,19 @@ class Showlocation extends API_Controller{
     function get_all_get(){
         $keyword = $this->get('keyword');
         $result = $this->showlocation_model->get_all($keyword);
-        $this->response([
-            'stetus' => true,
-            'massage' => $result
-        ], REST_Controller::HTTP_OK);
+        if ($result != null)
+            {
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ], REST_Controller::HTTP_OK); 
+            }else{
+            //error
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
         
 
         /*error

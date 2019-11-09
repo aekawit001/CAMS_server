@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Showcourse extends API_Controller{
+class Deletecourse extends API_Controller{
     function __construct()
     {    
         parent::__construct();
-        $this->load->model('showcourse_model');
+        $this->load->model('deletecourse_model');
     }
 
     function get_all_get(){
-        $keyword = $this->get('keyword');
-        $result = $this->showcourse_model->get_all($keyword);
+        $courseID = $this->get('courseID');
+        $result = $this->deletecourse_model->get_all($courseID);
         if ($result != null)
             {
                 $this->response([
@@ -25,6 +25,7 @@ class Showcourse extends API_Controller{
                 ], REST_Controller::HTTP_CONFLICT);
             }
         
+
         /*error
         $this->response([
             'stetus' => false,
