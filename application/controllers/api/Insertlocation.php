@@ -7,7 +7,7 @@ class Insertlocation extends API_Controller{
         parent::__construct();
         $this->load->model('insertlocation_model');
     }
-
+    
     function create_get(){
         $roomID = $this->get('roomID');
         $location = $this->get('location');
@@ -20,10 +20,6 @@ class Insertlocation extends API_Controller{
             "buildingName" => $buildingName
         );
 
-        // $isDuplicate = $this->insertlocation_model->isDuplicate();
-;
-        // $result = $this->insertlocation_model->create_get($data);
-        // $result = $this->insertlocation_model->insertdata($data);
         $data["room"] = array(
             'roomID' => $this->get("roomID"),
             'location' => $this->get("location"),
