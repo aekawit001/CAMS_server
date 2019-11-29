@@ -55,18 +55,30 @@
             return $this->db->insert('checkname', $data);  //table ''
         }
 
-        function gethistorydata($classID, $studentID){
-                $this->db->select("checkname.checknameID, checkname.datetime, checkname.status");
+        // function gethistorycourse($courses){
+        //     $this->db->from('courses');
+        //     $this->db->where('courseID', $courses);
+        //     $result = $this->db->get();
+        //     return $result->row();
+        // }
+
+        function posthistorycoruse(){
+            
+        }
+
+        function posthistorydata($classID){
+                // $this->db->select("checkname.checknameID, checkname.datetime, checkname.status");
                 $this->db->from('checkname');
                 $this->db->join('class', 'class.classID = checkname.classID');
-                // $this->db->join('course', 'course.courseID = class.courseID');
-                // $this->db->where('studentID', $studentID);
-                // $this->db->where('studentID', $userID);
-                // $this->db->where('classID', $classID);
-                // $this->db->where('studentID', $studentID);
+                $this->db->join('room','room.roomID = class.roomID');
+                $this->db->join('building','building.buildingID = room.buildingID');
+                //$this->db->group_by('checkname.classID');  
+                $this->db->having('checkname.classID' ,$classID);
+
+                // $this->db->join('coruse', 'coruse.classID = class.classID');
+                // $this->db->like('checkname.classID', $classID);
+                // $this->db->like('checkname.studentID', $studentID);
                 
-                $this->db->like('checkname.classID', $classID);
-                $this->db->like('checkname.studentID', $studentID);
                 $result = $this->db->get();
                 return $result->result();
                 // $this->db->select("activities_history.activity_history_id, activities.activity_name, activities_history.event_date");
@@ -78,6 +90,11 @@
                 // return $result->result();
     
             }
+
+        // function postbuildingdata(){
+        //         $this->db->from('checkname');
+        //         $this->db->join('room', 'room.classID = class.classID');
+        // }-
 
     }
 

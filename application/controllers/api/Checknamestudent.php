@@ -32,19 +32,18 @@
         }
 
         
-        function gethistory_get(){
+        function postHistoryChecknameByCourse_post(){
             $classID = $this->post("classID");
-            $studentID = $this->post("studentID");
-            $result = $this->checknamestudent_model->gethistorydata($classID, $studentID);
-            // success
-            // $this->response([
-            //     'status' => true,
-            //     'response' => $result
-            // ], REST_Controller::HTTP_OK);
+            $result = $this->checknamestudent_model->posthistorydata($classID);
+            $this->response($result); 
+        }
 
+        function getcourse_get(){
+            $courseID = $this->get("courseID");
+            $result = $this->checknamestudent_model->gethistorycourse($courseID);
             $this->response($result); 
 
-            
+            // $data[$key]['Course'] = $this->checknamestudent_model->gethistorycourse($value->courseID);
         }
 
         function postCheckname_post(){
@@ -99,30 +98,5 @@
     
             }
         }
-
-
-       
-        // function create_post(){
-        //     $checknameID = $this->input->post('checknameID');
-        //     // $studentID = $this->input->post('studentID');
-        //     // $classID = $this->input->post('classID');
-        //     // $datetime = $this->input->post('datetime');
-        //     $location = $this->input->post('location');
-
-        //     $data = [
-        //         'checknameID' => $checknameID,
-        //         // 'studentID' => $studentID,
-        //         // 'classID' => $classID,
-        //         // 'datetime' => $datetime,
-        //         'location' => $location,
-        //         // 'status' => 0
-        //     ];
-        //     // $result = $this->Checknamestudent_model->insert($data);
-        //     $this->response([
-        //         'status' => true,
-        //         'response' => $result
-        //     ],REST_Controller::HTTP_OK);
-        // }
-      
     }
 ?>
