@@ -62,8 +62,15 @@
         //     return $result->row();
         // }
 
-        function posthistorycoruse(){
-            
+        function gethistorycoruse($datauserID){
+            $this->db->from($this->tbl_name);
+            $this->db->join('courses', 'courses.courseID = studentsregeter.courseID');
+            $this->db->join('class', 'class.courseID = courses.courseID');
+            $this->db->join('checkname', 'checkname.classID = class.classID');
+            $this->db->group_by('courses.courseID');
+            $this->db->where('studentsregeter.studentID', $datauserID);
+            $result = $this->db->get();
+            return $result->result();
         }
 
         function posthistorydata($classID){
@@ -81,14 +88,6 @@
                 
                 $result = $this->db->get();
                 return $result->result();
-                // $this->db->select("activities_history.activity_history_id, activities.activity_name, activities_history.event_date");
-                // $this->db->from($this->tbl_name);
-                // $this->db->join('activities', 'activities_history.activity_id = activities.activity_id');
-        
-                // $this->db->like('activities.activity_name', $keyword);
-                // $result = $this->db->get();
-                // return $result->result();
-    
             }
 
         // function postbuildingdata(){

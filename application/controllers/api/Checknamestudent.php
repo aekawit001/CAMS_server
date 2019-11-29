@@ -31,6 +31,12 @@
 
         }
 
+        function getHistoryByCourse_get(){
+            $userID = $this->get('user_ID');
+            $result = $this->checknamestudent_model->gethistorycoruse($userID);
+            $this->response($result); 
+
+        }
         
         function postHistoryChecknameByCourse_post(){
             $classID = $this->post("classID");
