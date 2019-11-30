@@ -18,6 +18,27 @@ abstract class REST_Controller extends CI_Controller {
 
     // Note: Only the widely used HTTP status codes are documented
 
+    //message
+    const MSG_NOT_CREATE = 1001; 
+    const MSG_NOT_UPDATE = 1002;
+    const MSG_NOT_DELETE = 1003;
+    const MSG_BE_USED = 1004; // ถูกใช้งาน
+    const MSG_BE_DELETED = 1005; //ถูกลบไปแล้ว
+
+    const MSG_SUCCESS = 200;
+
+    const MSG_CREATE_DUPLICATE = 3001;
+    const MSG_UPDATE_DUPLICATE = 3002;
+
+    const MSG_UNAUTHORIZATION = 6001;
+
+    const MSG_LOGIN_OK = 2001;
+    const MSG_LOGIN_NOT_HAVE = 2002;
+    const MSG_LOGIN_LOCK = 2003;
+    const MSG_LOGIN_PASSWORD_WRONG = 2004;
+
+    const MSG_ERROR = 404;
+
     // Informational
 
     const HTTP_CONTINUE = 100;
