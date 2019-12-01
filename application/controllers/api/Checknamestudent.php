@@ -57,7 +57,8 @@
         
         function postHistoryChecknameByCourse_post(){
             $classID = $this->post("classID");
-            $result = $this->checknamestudent_model->posthistorydata($classID);
+            $userID = $this->post("user_ID");
+            $result = $this->checknamestudent_model->posthistorydata($classID, $userID);
             $this->response($result); 
         }
 

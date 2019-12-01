@@ -84,14 +84,15 @@
             return $result->result();
         }
 
-        function posthistorydata($classID){
+        function posthistorydata($classID, $userID){
                 // $this->db->select("checkname.checknameID, checkname.datetime, checkname.status");
                 $this->db->from('checkname');
                 $this->db->join('class', 'class.classID = checkname.classID');
                 $this->db->join('room','room.roomID = class.roomID');
                 $this->db->join('building','building.buildingID = room.buildingID');
                 //$this->db->group_by('checkname.classID');  
-                $this->db->having('checkname.classID' ,$classID);
+                $this->db->where('checkname.classID' ,$classID);
+                $this->db->where('checkname.studentID' ,$userID);
 
                 // $this->db->join('coruse', 'coruse.classID = class.classID');
                 // $this->db->like('checkname.classID', $classID);
