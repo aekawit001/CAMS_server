@@ -20,11 +20,22 @@
 
         function getCourseByUserId($userID){
             $datestart = date('Y-m-d',time());
-            
-            // $this->db->();
+            //เพิ่มใหม่//
+            // $this->db->select(" courses.courseID, courses.courseCode, courses.courseName,  class.classID, class.starttime, class.endtime, room.roomID, room.roomname, building.buildingID, building.buildingName");
+            //
             $this->db->from($this->tbl_name);
             $this->db->join('courses', 'courses.courseID = studentsregeter.courseID');
+             //เพิ่มใหม่//
+                // $this->db->join('class', 'class.courseID = courses.courseID');
+                // $this->db->join('room', 'room.roomID = class.roomID');
+                // $this->db->join('building', 'building.buildingID = room.buildingID');
+                // $this->db->group_by('room.roomID' , $datestart);
+            //
+
             $this->db->where('studentsregeter.studentID', $userID);
+            // $this->db->group_by('class.startdate', $datestart);
+
+
             $result = $this->db->get();
             // echo $this->db->last_query();
             return $result->result();

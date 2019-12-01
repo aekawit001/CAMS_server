@@ -20,15 +20,32 @@
 
         function getCourseByUserId_get(){
             $userID = $this->get('user_ID');
+
+            // $this->checknamestudent_model->getCourseByUserId($userID);
+            // $studentID = $this->get("studentID");
+            // $courseCode = $this->get("courseCode");
+            // $courseName = $this->get("courseName");
+            // $classID = $this->get("classID");
+            // $roomID = $this->get("roomID");
+            // $starttime = $this->get("starttime");
+            // $endtime = $this->get("endtime");
+            // $startdate = $this->get("startdate");
+            // $buildingID = $this->get("buildingID");
+            // $roomname = $this->get("roomname");
+            // $location = $this->get("location");
+            // $buildingName = $this->get("buildingName");
+            
             $result = $this->checknamestudent_model->getCourseByUserId($userID);
             $data = [];
             foreach ($result as $key => $value) {
                 $data[$key]['data'] = $value;
                 $data[$key]['time'] = $this->checknamestudent_model->getdatatime($value->courseID);
             }
-            // $this->response(['response' => $result]);
+            // if($result.(datestart) <= $result.(starttime) ){
             $this->response($data); 
-
+            // }
+            // $this->response(['response' => $result]);
+            // || $result.datestart <= $result.endtime
         }
 
         function getHistoryByCourse_get(){
