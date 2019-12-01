@@ -73,13 +73,13 @@
         //     return $result->row();
         // }
 
-        function gethistorycoruse($datauserID){
+        function gethistorycoruse($userID){
             $this->db->from($this->tbl_name);
             $this->db->join('courses', 'courses.courseID = studentsregeter.courseID');
             $this->db->join('class', 'class.courseID = courses.courseID');
             $this->db->join('checkname', 'checkname.classID = class.classID');
             $this->db->group_by('courses.courseID');
-            $this->db->where('studentsregeter.studentID', $datauserID);
+            $this->db->where('checkname.studentID', $userID);
             $result = $this->db->get();
             return $result->result();
         }
