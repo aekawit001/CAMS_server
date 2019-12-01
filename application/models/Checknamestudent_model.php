@@ -25,6 +25,7 @@
             //
             $this->db->from($this->tbl_name);
             $this->db->join('courses', 'courses.courseID = studentsregeter.courseID');
+
              //เพิ่มใหม่//
                 // $this->db->join('class', 'class.courseID = courses.courseID');
                 // $this->db->join('room', 'room.roomID = class.roomID');
@@ -33,6 +34,9 @@
             //
 
             $this->db->where('studentsregeter.studentID', $userID);
+            $this->db->join('students', 'students.studentID = studentsregeter.studentID');
+            // $this->db->group_by('students.firstName');
+
             // $this->db->group_by('class.startdate', $datestart);
 
 
