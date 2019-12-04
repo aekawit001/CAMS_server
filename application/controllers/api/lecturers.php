@@ -7,6 +7,7 @@
         {
             parent::__construct();
             $this->load->model('lecturers_model');
+            
         }
 
         function get_all_get(){         // all_get || all_post || all_delete
@@ -19,6 +20,17 @@
             $result = $this->lecturers_model->getsearch_all($keyword);
             $this->response($result); 
 
+        }
+
+        function getteachcourses_get(){
+            // $datetime = date('Y-m-d H:i:s');
+            $teaching = $this->get('teachingID');
+            // $startdate = $this->get("startdate");
+            // if($startdate >= $datetime){
+            // }
+            $result = $this->lecturers_model->getteachcoursesmodel($teaching);
+
+            $this->response($result);
         }
 
         function create_post(){
@@ -63,6 +75,18 @@
             // ],REST_Controller::HTTP_OK);
             $this->response($result);
 
+        }
+        function historystudentabycourses_get(){
+            $courseID = $this->get('courseID');
+            $result = $this->lecturers_model->historystudentabycoursesmodel($courseID);
+            $this->response($result); 
+        }
+
+        ///เริ่ม 
+        function getlecturersbyCourse_get(){
+            $lecturerID = $this->get('lecturerID');
+            $result = $this->lecturers_model->getlecturersbyCoursemodel($lecturerID);
+            $this->response($result); 
         }
     }
 ?>
