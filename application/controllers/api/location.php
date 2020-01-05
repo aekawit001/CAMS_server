@@ -8,29 +8,26 @@ class location extends BD_Controller{
         $this->load->model('location_model');
     }
     
-    function create_get(){
-        $roomID = $this->get('roomID');
-        $roomname = $this->get('roomname');
-        $location = $this->get('location');
-        $buildingID = $this->get('buildingID');
-        $buildingName = $this->get('buildingName');
-        $data = array( 
-            "roomID" => $roomID,
+    function create_post(){
+
+        $roomname = $this->post('roomname');
+        $location = $this->post('location');
+        $buildingName = $this->post('buildingName');
+
+        $data = array(  
             "roomname" => $roomname,
             "location" => $location,
-            "buildingID" => $buildingID,
             "buildingName" => $buildingName
         );
 
         $data["room"] = array(
-            'roomID' => $this->get("roomID"),
-            'roomname' => $this->get("roomname"),
-            'location' => $this->get("location"),
-            'buildingID' => $this->get("buildingID") 
+  
+            'roomname' => $this->post("roomname"),
+            'location' => $this->post("location")
+
         );
         $data["building"] = array(
-            'buildingName' => $this->get("buildingName"),
-            'buildingID' => $this->get("buildingID")
+            'buildingName' => $this->post("buildingName")
         );
 
         $result = $this->location_model->insertdata($data);
@@ -63,8 +60,8 @@ class location extends BD_Controller{
     }
 
     function delete_get(){
-        $roomID = $this->get('roomID');
-        $result = $this->location_model->delete($roomID);
+        $buildingID = $this->get('buildingID');
+        $result = $this->location_model->delete($buildingID);
         if ($result != null)
             {
                 $this->response([
@@ -86,4 +83,50 @@ class location extends BD_Controller{
             'massage' => $result
         ], REST_Controller::HTTP_CONFLICT);*/
     }
+
+    function update_post(){
+        $buildingID = $this->post('buildingID');
+        $buildingName = $this->post('buildingName');
+        $roomname = $this->post('roomname');
+        $location = $this->post('location');
+        $data = array( 
+            "buildingID" => $buildingID,
+            "roomname" => $roomname,
+            "location" => $location,
+            "buildingName" => $buildingName
+        );
+
+        $data["room"] = array(
+            'roomname' => $this->post("roomname"),
+            'location' => $this->post("location"),
+            'buildingID' => $this->post("buildingID") 
+        );
+        $data["building"] = array(
+            'buildingName' => $this->post("buildingName"),
+            'buildingID' => $this->get("buildingID")
+        );
+
+        $result = $this->location_model->update($data);
+
+        if ($result != null)
+            {
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ], REST_Controller::HTTP_OK); 
+            }else{
+            //error
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
+        
+        /*error
+        $this->response([
+            'stetus' => false,
+            'massage' => $result
+        ], REST_Controller::HTTP_CONFLICT);*/
+    }
+
 }
