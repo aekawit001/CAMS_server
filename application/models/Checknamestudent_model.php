@@ -22,6 +22,7 @@
             $datestart = date('Y-m-d',time());
             $this->db->from($this->tbl_name);
             $this->db->join('courses', 'courses.courseID = studentsregeter.courseID');
+            
             $this->db->where('studentsregeter.studentID', $userID);
             $this->db->join('students', 'students.studentID = studentsregeter.studentID');
             $result = $this->db->get();

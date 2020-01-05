@@ -12,6 +12,7 @@ if (!function_exists('change_date_format'))
         $monthIndex = (int)$array_date[1];
         $month = $array_month[$monthIndex];
         $year = ($array_date[0]+543);
+        
 
         return $day.' '.$month.' '.$year;
     }
