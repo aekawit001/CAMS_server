@@ -40,8 +40,7 @@ class location_model extends CI_Model {
         return $result->result();   
     }
 
-    function delete($buildingID){
-
+    function delete_room($buildingID){
         $this->db->from('room');
         $this->db->join('building', 'building.buildingID = room.buildingID');
         $this->db->where('room.buildingID', $buildingID);
@@ -50,15 +49,38 @@ class location_model extends CI_Model {
         return $result->result();
     }
 
-    function updete($data){
+    
+    function delete_building($buildingID){
+        // $this->db->from('room');
+        // $this->db->join('building', 'building.buildingID = room.buildingID');
+        $this->db->where('building.buildingID', $buildingID);
+        $this->db->delete('building');
+        $result = $this->db->get('building');
+        return $result->result();
+    }
 
-        // $this->db->where('building',$data["building"]);
-        // $buildingID = $this->db->insert_id();
-        // $data["room"]["buildingID"] = $buildingID;     
-        // $this->db->set("room",$data["room"]);
-        // $result = $this->db->get($this->tbl_name);
-        // return $result->result();
-
+    function update_room($data){
+        $this->db->from('room');
+        $this->db->join('building', 'building.data = room.data');
+        $this->db->where('room.data', $data);
+        $this->db->update('room',$data);
+        $result = $this->db->get($this->tbl_name);
+        return $result;
      }
+     
+    function updete_building($data){
+        $this->db->where('building.buildingID',$buildingID);
+        $this->db->update('building',$data);
+        $result = $this->db->get('building');
+        return $result;
+     }
+
+    function getBeforelocation_model($buildingID){
+        $this->db->from('room');
+        $this->db->join('building','building.buildingID = room.buildingID');
+        $this->db->where('building.buildingID', $buildingID);
+        $result = $this->db->get();
+        return $result->result();   
+    }
 
 }

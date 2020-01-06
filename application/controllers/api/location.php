@@ -61,7 +61,8 @@ class location extends BD_Controller{
 
     function delete_get(){
         $buildingID = $this->get('buildingID');
-        $result = $this->location_model->delete($buildingID);
+        $result = $this->location_model->delete_room($buildingID);
+        $result = $this->location_model->delete_building($buildingID);
         if ($result != null)
             {
                 $this->response([
@@ -86,10 +87,13 @@ class location extends BD_Controller{
 
     function update_post(){
         $buildingID = $this->post('buildingID');
+        $roomID = $this->post('roomID');
         $buildingName = $this->post('buildingName');
         $roomname = $this->post('roomname');
         $location = $this->post('location');
+
         $data = array( 
+            "roomID" => $roomID,
             "buildingID" => $buildingID,
             "roomname" => $roomname,
             "location" => $location,
@@ -97,36 +101,33 @@ class location extends BD_Controller{
         );
 
         $data["room"] = array(
-            'roomname' => $this->post("roomname"),
-            'location' => $this->post("location"),
-            'buildingID' => $this->post("buildingID") 
+            "roomID" => $roomID,
+            "buildingID" => $buildingID,
+            "roomname" => $roomname,
+            "location" => $location
         );
+        // $result = $this->location_model->update_room($data);
+
         $data["building"] = array(
-            'buildingName' => $this->post("buildingName"),
-            'buildingID' => $this->get("buildingID")
+            "buildingID" => $buildingID,
+            "buildingName" => $buildingName
         );
+        $result = $this->location_model->update_room($data);
+        // $result = $this->location_model->update_building($data);
 
-        $result = $this->location_model->update($data);
-
-        if ($result != null)
-            {
-                $this->response([
-                    'status' => true,
-                    'response' => $result
-                ], REST_Controller::HTTP_OK); 
-            }else{
-            //error
-                $this->response([
-                    'status' => false,
-                    'message' => ''
-                ], REST_Controller::HTTP_CONFLICT);
-            }
-        
-        /*error
         $this->response([
-            'stetus' => false,
-            'massage' => $result
-        ], REST_Controller::HTTP_CONFLICT);*/
+            'status' => true,
+            'response' => $result
+        ],REST_Controller::HTTP_OK);
+    }
+
+    function getupdate_location_get(){
+        $buildingID = $this->get('buildingID');
+        $result = $this->location_model->getBeforelocation_model($buildingID);
+        $this->response([
+            'status' => true,
+            'response' => $result
+        ],REST_Controller::HTTP_OK);
     }
 
 }
