@@ -4,7 +4,7 @@
     class lecturers_model extends CI_Model{
 
         private $tbl_name = "lecturers";
-
+        const num = 0;
         function get_all(){
             $result = $this->db->get($this->tbl_name);
             return $result->result();   //result คือ อาเรย์ of object
@@ -211,16 +211,44 @@
             return $this->db->delete('studentsregeter');  
         }
 
-        function get_id_history_student_get_model($studentID,$courseID){
-            $this->db->from('checkname');
-            $this->db->join('class', 'class.studentID = checkname.studentID');
-            $this->db->join('courses', 'courses.courseID = class.courseID');
+        // function get_id_history_student_get_model($courseID){
+        //     // $this->db->select('checkname.checknameID,checkname.studentID,students.prefix,students.firstName,students.lastName,checkname.latitude,checkname.longitude,checkname.datetime ');
+        //     // $this->db->select('checkname.checknameID,checkname.studentID,students.prefix,students.firstName,students.lastName,checkname.latitude,checkname.longitude,checkname.datetime ');
 
+        //     $this->db->from('class');
+        //     $this->db->join('checkname', 'checkname.classID = class.classID');
+        //     $this->db->join('students', 'students.studentID = checkname.studentID');
+
+        //     $this->db->select_max('checknameID');
+        //     // $this->db->where('checkname.studentID', $studentID);
+        //     $this->db->where('courseID', $courseID);
+        //     // $this->db->where('checkname.classID', $classID);
+
+        //     $result = $this->db->get();
+        //     return $result->result();
+
+
+        // }
+
+        function get_id_history_student_get_model($studentID){
+            
+            $this->db->select('checkname.studentID, checkname.classID , checkname.datetime ,checkname.latitude ,checkname.longitude ');
+
+            $this->db->from('checkname');
+            // $this->db->where('checkname.courseID', $courseID);
+
+            $this->db->select('studentID');
+            $this->db->group_by('classID'); 
+            $this->db->join('class', 'class.classID = checkname.classID');
+            // $this->db->order_by('total', 'desc'); 
             $this->db->where('checkname.studentID', $studentID);
-            $this->db->where('courses.courseID', $courseID);
+            // $this->db->where('checkname.courseID', $courseID);
+            
+
             $result = $this->db->get();
             return $result->result();
         }
+
 
     }
 ?>

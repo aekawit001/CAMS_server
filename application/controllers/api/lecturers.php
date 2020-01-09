@@ -301,6 +301,13 @@
                 ], REST_Controller::HTTP_CONFLICT);
             }
         }
+
+        function get_id_history_student_get(){
+            // $courseID = $this->get('courseID');
+            $studentID = $this->get('studentID');
+            $result = $this->lecturers_model->get_id_history_student_get_model($studentID);
+            $this->response($result);   
+        }
             
     }
 ?>
