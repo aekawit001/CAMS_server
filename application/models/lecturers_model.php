@@ -115,6 +115,15 @@
             return $this->db->insert('teaching', $data);
         }
 
+        function chackdatacreateclassbyTeachs($courseID,$startdate,$roomID){
+                $this->db->from('class');
+                $this->db->where('courseID', $courseID);
+                $this->db->where('startdate', $startdate);
+                $this->db->where('roomID', $roomID);
+                $result = $this->db->get();
+                return $result->result();
+        }
+
         function insertdatacreateclassbyTeachs($data){
             return $this->db->insert('class', $data);
         }
@@ -179,7 +188,7 @@
 
         //getsutdentByCourses
         function getsutdentByCourses_model($lecturerID,$courseID){
-            $this->db->select('teaching.teachingID, courses.courseID,  students.prefix, students.firstName, students.lastName, ');
+            $this->db->select('teaching.teachingID, studentsregeter.studentsregeterID,courses.courseID,  students.prefix, students.firstName, students.lastName, ');
             $this->db->from('teaching');
             $this->db->join('courses', 'courses.courseID = teaching.courseID');
             $this->db->join('studentsregeter', 'studentsregeter.courseID = courses.courseID');
@@ -191,7 +200,8 @@
             $result = $this->db->get();
             return $result->result();
         }
-        //
+         
+
         function get_all_sutdentByCourses_model(){
             $this->db->from('students');
             $result = $this->db->get();
@@ -200,6 +210,15 @@
         function insert_studentByCourses_model($data){
             return $this->db->insert('studentsregeter', $data);
         }
+
+        function get_all_studentsregeter_sutdentByCourses_model($courseID,$studentID){
+            $this->db->from('studentsregeter');
+            $this->db->where('courseID', $courseID);
+            $this->db->where('studentID', $studentID);
+            $result = $this->db->get();
+            return $result->result();
+        }
+        //
 
         // function delete_studentByCourses_model($studentsregeterID){    
         //     $this->db->where('studentsregeterID', $studentsregeterID);
@@ -230,24 +249,41 @@
 
         // }
 
-        function get_id_history_student_get_model($studentID){
+        function get_id_history_student_get_model($studentID,$courseID){
             
-            $this->db->select('checkname.studentID, checkname.classID , checkname.datetime ,checkname.latitude ,checkname.longitude ');
+            $this->db->select('checkname.studentID, checkname.classID , checkname.datetime ,checkname.status ,checkname.latitude ,checkname.longitude ');
 
             $this->db->from('checkname');
-            // $this->db->where('checkname.courseID', $courseID);
+            $this->db->select_max('checkname.checknameID'); 
 
-            $this->db->select('studentID');
-            $this->db->group_by('classID'); 
+            // $this->db->group_by('checkname.classID');  
+            // $this->db->last_query('checkname.checknameID'); 
+
             $this->db->join('class', 'class.classID = checkname.classID');
-            // $this->db->order_by('total', 'desc'); 
+
+            // $this->db->select('studentID');
+            // $this->db->group_by('checkname.checknameID'); 
             $this->db->where('checkname.studentID', $studentID);
-            // $this->db->where('checkname.courseID', $courseID);
+            $this->db->where('class.courseID', $courseID);
             
 
             $result = $this->db->get();
             return $result->result();
         }
+        
+        // function get_id_history_student_get_model($studentID,$courseID){
+        //     $this->db->select('checkname.studentID, checkname.checknameID, checkname.classID , checkname.datetime ,checkname.status ,checkname.latitude ,checkname.longitude ');
+        //     $this->db->from('checkname');
+        //     $this->db->select_max('checkname.checknameID'); 
+        //     // $this->db->join('class', 'class.classID = checkname.classID');
+        //     $this->db->group_by('checkname.classID');  
+
+        //     // $this->db->like('checkname.classID ', 'match', 'after');
+        //     $this->db->where('checkname.studentID', $studentID);
+        //     // $this->db->where('class.courseID', $courseID);
+        //     $result = $this->db->get();
+        //     return $result->result();
+        // }
 
 
     }

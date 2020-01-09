@@ -138,18 +138,29 @@
             $startcheck = $this->post('startcheck');
             $endcheck = $this->post('endcheck');
 
-            $data = array(
-                "courseID"=> $courseID,
-                'classID' => $this->post('classID'),
-                'roomID' => $this->post('roomID'),
-                'starttime' => $this->post('starttime'),
-                'endtime' => $this->post('endtime'),
-                'startdate' => $this->post('startdate'),
-                'startcheck' => $this->post('startcheck'),
-                'endcheck' => $this->post('endcheck'),
-            );
-            $result = $this->lecturers_model->insertdatacreateclassbyTeachs($data);
-            $this->response($result); 
+            $resultchackdate = $this->lecturers_model->chackdatacreateclassbyTeachs($courseID,$startdate,$roomID);
+            if(!$resultchackdate == $courseID && !$resultchackdate == $startdate && !$resultchackdate == $roomID){
+                $data = array(
+                    "courseID"=> $courseID,
+                    'classID' => $this->post('classID'),
+                    'roomID' => $this->post('roomID'),
+                    'starttime' => $this->post('starttime'),
+                    'endtime' => $this->post('endtime'),
+                    'startdate' => $this->post('startdate'),
+                    'startcheck' => $this->post('startcheck'),
+                    'endcheck' => $this->post('endcheck'),
+                );
+                $result = $this->lecturers_model->insertdatacreateclassbyTeachs($data);
+                $this->response($resultchackdate); 
+                
+            }else{
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
+
+            
         }
 
         // update courses
@@ -276,13 +287,25 @@
         function insert_studentByCourses_post(){
             $courseID = $this->post('courseID');
             $studentID = $this->post('studentID');
-            $data = array(
-                "courseID"=> $courseID,
-                "studentID" => $studentID
+            $resulcourseIDbystudent = $this->lecturers_model->get_all_studentsregeter_sutdentByCourses_model($courseID,$studentID);
 
-            );
-            $result = $this->lecturers_model->insert_studentByCourses_model($data);
-            $this->response($result); 
+            if(!$resulcourseIDbystudent == $courseID && !$resulcourseIDbystudent == $studentID){
+                $data = array(
+                    "courseID"=> $courseID,
+                    "studentID" => $studentID
+    
+                );
+                $result = $this->lecturers_model->insert_studentByCourses_model($data);
+                $this->response($resulcourseIDbystudent); 
+            }else{
+                // $output['status'] = false;
+                // $output['message'] = 'รายชื่อนักศึกษาซ้ำ';
+                // $this->response($output, REST_Controller::HTTP_OK);
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
         }
 
         function get_delete_studentByCourses_get(){
@@ -303,9 +326,9 @@
         }
 
         function get_id_history_student_get(){
-            // $courseID = $this->get('courseID');
+            $courseID = $this->get('courseID');
             $studentID = $this->get('studentID');
-            $result = $this->lecturers_model->get_id_history_student_get_model($studentID);
+            $result = $this->lecturers_model->get_id_history_student_get_model($studentID,$courseID);
             $this->response($result);   
         }
             

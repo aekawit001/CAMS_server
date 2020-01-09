@@ -55,6 +55,27 @@
             }
         }
 
+        //studentsregeter
+        function get_delete_studentsregeter_get(){
+            $studentsregeterID = $this->get('studentsregeterID');
+            // $result = $this->admin_showcourse_model->delete_coursesid_teaching($studentsregeterID);
+            $result = $this->admin_showcourse_model->delete_studentsregeter_model($studentsregeterID);
+
+            if ($result != null)
+            {
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ], REST_Controller::HTTP_OK); 
+            }else{
+            //error
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
+        }
+
         function admin_importcourse_post($data){
             $data = $this->post('data');
             $data = [];

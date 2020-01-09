@@ -29,6 +29,12 @@
             return $result->result();
         }
 
+        //studentsregeterID
+        function delete_studentsregeter_model($studentsregeterID){    
+            $this->db->where('studentsregeterID', $studentsregeterID); 
+            return $this->db->delete('studentsregeter');  
+        }
+
         // importcorses
         function import($data){
             $this->db->trans_begin();
