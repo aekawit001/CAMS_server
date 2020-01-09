@@ -10,10 +10,23 @@
             return $result->result();   //result คือ อาเรย์ of object
         }
 
+        function delete_teaching($teachingID){    
+            $this->db->where('teachingID', $teachingID); 
+            return $this->db->delete('teaching');  
+        }
+
         // delete_courseid
         function delete_courseid($courseID){    
             $this->db->where('courseID', $courseID); 
             return $this->db->delete($this->tbl_name);  
+        }
+        function delete_coursesid_teaching($courseID){
+            // $this->db->from('room');
+            // $this->db->join('building', 'building.courseID = room.courseID');
+            $this->db->where('teaching.courseID', $courseID);
+            $this->db->delete('teaching');
+            $result = $this->db->get('teaching');
+            return $result->result();
         }
 
         // importcorses

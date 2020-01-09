@@ -260,6 +260,47 @@
         //     ], REST_Controller::HTTP_CONFLICT);*/
         // }
 
+        // get studentby courses
+        function get_studentByCourses_get(){
+            $lecturerID = $this->get('lecturerID');
+            $courseID = $this->get('courseID');
+            $result = $this->lecturers_model->getsutdentByCourses_model($lecturerID,$courseID);
+            $this->response($result);   
+        }
 
+        function get_all_sutdentByCourses_get(){
+            $result = $this->lecturers_model->get_all_sutdentByCourses_model();
+            $this->response($result); 
+        }
+
+        function insert_studentByCourses_post(){
+            $courseID = $this->post('courseID');
+            $studentID = $this->post('studentID');
+            $data = array(
+                "courseID"=> $courseID,
+                "studentID" => $studentID
+
+            );
+            $result = $this->lecturers_model->insert_studentByCourses_model($data);
+            $this->response($result); 
+        }
+
+        function get_delete_studentByCourses_get(){
+            $studentsregeterID = $this->get('studentsregeterID');
+            $result = $this->lecturers_model->delete_studentByCourses_model($studentsregeterID);
+            if ($result != null)
+            {
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ], REST_Controller::HTTP_OK); 
+            }else{
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
+        }
+            
     }
 ?>

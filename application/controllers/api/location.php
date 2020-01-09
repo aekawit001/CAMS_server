@@ -26,7 +26,7 @@ class location extends BD_Controller{
             'location' => $this->post("location")
 
         );
-        $data["building"] = array(
+        $data["building"] = array( 
             'buildingName' => $this->post("buildingName")
         );
 

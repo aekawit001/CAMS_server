@@ -64,8 +64,8 @@
             // $this->db->join('teaching', 'teaching.lecturerID = lecturers.lecturerID');
             // $this->db->join('courses', 'courses.courseID = teaching.courseID');
             $this->db->join('class', 'class.courseID = courses.courseID');
-            // $this->db->join('room','room.roomID = class.roomID');
-            // $this->db->join('building','building.buildingID = room.buildingID');
+            $this->db->join('room','room.roomID = class.roomID');
+            $this->db->join('building','building.buildingID = room.buildingID');
 
             $this->db->where('class.courseID', $courseID);
 
@@ -174,6 +174,52 @@
          function delete_classid($classID){    
             $this->db->where('classID', $classID); 
             return $this->db->delete('class');  
+        }
+
+
+        //getsutdentByCourses
+        function getsutdentByCourses_model($lecturerID,$courseID){
+            $this->db->select('teaching.teachingID, courses.courseID,  students.prefix, students.firstName, students.lastName, ');
+            $this->db->from('teaching');
+            $this->db->join('courses', 'courses.courseID = teaching.courseID');
+            $this->db->join('studentsregeter', 'studentsregeter.courseID = courses.courseID');
+            $this->db->join('students', 'students.studentID = studentsregeter.studentID');
+
+            $this->db->where('teaching.lecturerID', $lecturerID);
+            $this->db->where('teaching.courseID', $courseID);
+            // $this->db->where()
+            $result = $this->db->get();
+            return $result->result();
+        }
+        //
+        function get_all_sutdentByCourses_model(){
+            $this->db->from('students');
+            $result = $this->db->get();
+            return $result->result();
+        }
+        function insert_studentByCourses_model($data){
+            return $this->db->insert('studentsregeter', $data);
+        }
+
+        // function delete_studentByCourses_model($studentsregeterID){    
+        //     $this->db->where('studentsregeterID', $studentsregeterID);
+        //     return $this->db->delete('studentsregeter');  
+        // }
+
+        function delete_studentByCourses_model($studentsregeterID){    
+            $this->db->where('studentsregeterID', $studentsregeterID); 
+            return $this->db->delete('studentsregeter');  
+        }
+
+        function get_id_history_student_get_model($studentID,$courseID){
+            $this->db->from('checkname');
+            $this->db->join('class', 'class.studentID = checkname.studentID');
+            $this->db->join('courses', 'courses.courseID = class.courseID');
+
+            $this->db->where('checkname.studentID', $studentID);
+            $this->db->where('courses.courseID', $courseID);
+            $result = $this->db->get();
+            return $result->result();
         }
 
     }

@@ -16,14 +16,43 @@
 
         }
 
+        function delete_get(){
+            $teachingID = $this->get('teachingID');
+            $result = $this->admin_showcourse_model->delete_teaching($teachingID);
+            if ($result != null)
+            {
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ], REST_Controller::HTTP_OK); 
+            }else{
+            //error
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
+
+        }
+
         function get_delete_courseid_get(){
             $courseID = $this->get('courseID');
+            $result = $this->admin_showcourse_model->delete_coursesid_teaching($courseID);
             $result = $this->admin_showcourse_model->delete_courseid($courseID);
-            // $this->response($result); 
-            $this->response([
-                'status' => true,
-                'response' => $result
-            ],REST_Controller::HTTP_OK);
+
+            if ($result != null)
+            {
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ], REST_Controller::HTTP_OK); 
+            }else{
+            //error
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
         }
 
         function admin_importcourse_post($data){
@@ -56,6 +85,9 @@
             $result = $this->admin_showcourse_model->showusername_teacher_model();
             $this->response($result); 
         }
+
+
+      
 
         // function admin_importcourse($request, $response, $args) {
         //     $admin_showcourse_model = new Courses($this->container);
