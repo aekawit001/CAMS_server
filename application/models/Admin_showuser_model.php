@@ -7,7 +7,7 @@
 
        
         function showusername_teacher_model(){
-            $this->db->select('lecturerID, roleID, prefix, firstName, lastName, email, phoneNumber');
+            $this->db->select('lecturerID, prefix, firstName, lastName, email, phoneNumber');
             $result = $this->db->get($this->tbl_name);
             return $result->result();
         }

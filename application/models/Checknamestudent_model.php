@@ -49,12 +49,17 @@
             return $result->row();
         }
 
-        function postChecknamedata($classID, $studentID){
+        function postChecknamedata($studentID){
             $this->db->from('checkname');
-            $this->db->where('classID', $classID);
             $this->db->where('studentID', $studentID);
-            // $this->db->where('latitude', $latitude);
-            // $this->db->where('longitude', $longitude);
+            $result = $this->db->get();
+            return $result->result();
+        }
+
+        function postChecknamedata_time($classID){
+            $this->db->select("class.starttime, class.endtime, class.startdate, class.startcheck, class.endcheck");
+            $this->db->from('class');
+            $this->db->where('classID', $classID);
             $result = $this->db->get();
             return $result->result();
         }

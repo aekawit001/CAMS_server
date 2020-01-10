@@ -6,7 +6,7 @@
         private $tbl_name = "teaching";
 
         function get_all_lecturer_model(){
-            $this->db->select("lecturerID,firstName,lastName,roleID,user_id");
+            $this->db->select("lecturerID,firstName,lastName,user_id");
             $this->db->from('lecturers');
             $result = $this->db->get();
             return $result->result();

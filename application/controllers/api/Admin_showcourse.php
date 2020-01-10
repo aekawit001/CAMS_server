@@ -55,7 +55,7 @@
             }
         }
 
-        //studentsregeter
+        //studentsregeterID
         function get_delete_studentsregeter_get(){
             $studentsregeterID = $this->get('studentsregeterID');
             // $result = $this->admin_showcourse_model->delete_coursesid_teaching($studentsregeterID);

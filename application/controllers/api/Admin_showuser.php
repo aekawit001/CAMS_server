@@ -40,22 +40,28 @@
             $lastName = $this->post('lastName');
             $email = $this->post('email');
             $phoneNumber = $this->post('phoneNumber');
-            echo("asndoasndo"+$firstName);
-
-            $data = [
-                'lecturerID' => $lecturerID,
-                'prefix' => $prefix,
-                'firstName' => $firstName,
-                'lastName' => $lastName,
-                'email' => $email,
-                'phoneNumber' => $phoneNumber,
-            ];
-            $result = $this->admin_showuser_model->post_updatelecturer($data);
-
-            $this->response([
-                'status' => true,
-                'response' => $result
-            ],REST_Controller::HTTP_OK);
+            if ( !empty($prefix) && !empty($firstName) && !empty($lastName) ){
+                $data = [
+                    'lecturerID' => $lecturerID,
+                    'prefix' => $prefix,
+                    'firstName' => $firstName,
+                    'lastName' => $lastName,
+                    'email' => $email,
+                    'phoneNumber' => $phoneNumber,
+                ];
+                $result = $this->admin_showuser_model->post_updatelecturer($data);
+    
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ],REST_Controller::HTTP_OK);
+            }else{
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
+           
             
         }
 
@@ -91,26 +97,34 @@
             $lastName = $this->post('lastName');
             $email = $this->post('email');
             $phone = $this->post('phone');
-            echo("asndoasndo"+$studentID);
-            echo("asndoasndo"+$firstName);
-            echo("asndoasndo"+$lastName);
-            echo("asndoasndo"+$email);
-            echo("asndoasndo"+$phone);
+            // echo("asndoasndo"+$studentID);
+            // echo("asndoasndo"+$firstName);
+            // echo("asndoasndo"+$lastName);
+            // echo("asndoasndo"+$email);
+            // echo("asndoasndo"+$phone);
+            if ( !empty($prefix) && !empty($firstName) && !empty($lastName) ){
+                $data = [
+                    'studentID' => $studentID,
+                    'prefix' => $prefix,
+                    'firstName' => $firstName,
+                    'lastName' => $lastName,
+                    'email' => $email,
+                    'phone' => $phone,
+                ];
+                $result = $this->admin_showuser_model->post_updatestudent($data);
+    
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ],REST_Controller::HTTP_OK);
+            }else{
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
 
-            $data = [
-                'studentID' => $studentID,
-                'prefix' => $prefix,
-                'firstName' => $firstName,
-                'lastName' => $lastName,
-                'email' => $email,
-                'phone' => $phone,
-            ];
-            $result = $this->admin_showuser_model->post_updatestudent($data);
-
-            $this->response([
-                'status' => true,
-                'response' => $result
-            ],REST_Controller::HTTP_OK);
+            
             
         }
 

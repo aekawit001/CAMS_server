@@ -147,10 +147,15 @@
         // get_courses
         function get_courses(){
             $this->db->where('courseID', $courseID);
-            $result = $this->db->get('teaching');
+            $result = $this->db->get('class');
             return $result->result();
         }
-
+        //chack_delete
+        function chack_delete($courseID){    
+            $this->db->where('courseID', $courseID); 
+            $result = $this->db->get('class');  
+            return $result->result();
+        }
         //delete 
         function delete($teachingID){    
             $this->db->where('teachingID', $teachingID); 

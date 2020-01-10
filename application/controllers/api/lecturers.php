@@ -183,13 +183,17 @@
         //delete Course
         function get_delete_get(){
             $teachingID = $this->get('teachingID');
-            $result = $this->lecturers_model->delete($teachingID);
-            // $this->response($result); 
-
-            $this->response([
-                'status' => true,
-                'response' => $result
-            ],REST_Controller::HTTP_OK);
+            $courseID = $this->get('courseID');
+            $resultchackdelete = $this->lecturers_model->chack_delete($courseID);
+            if(!$resultchackdelete == $courseID){
+                $result = $this->lecturers_model->delete($teachingID);
+                $this->response($resultchackdelete); 
+            }else{
+                $this->response([
+                    'status' => false,
+                    'message' => ''
+                ], REST_Controller::HTTP_CONFLICT);
+            }
         }
 
         // get BeforeCourse
