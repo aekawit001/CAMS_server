@@ -115,10 +115,10 @@
             return $this->db->insert('teaching', $data);
         }
 
-        function chackdatacreateclassbyTeachs($courseID,$startdate,$roomID){
+        function chackdatacreateclassbyTeachs($courseID,$starttime,$roomID){
                 $this->db->from('class');
                 $this->db->where('courseID', $courseID);
-                $this->db->where('startdate', $startdate);
+                $this->db->where('starttime', $starttime);
                 $this->db->where('roomID', $roomID);
                 $result = $this->db->get();
                 return $result->result();
@@ -255,23 +255,11 @@
         // }
 
         function get_id_history_student_get_model($studentID,$courseID){
-            
             $this->db->select('checkname.studentID, checkname.classID , checkname.datetime ,checkname.status ,checkname.latitude ,checkname.longitude ');
-
             $this->db->from('checkname');
-            $this->db->select_max('checkname.checknameID'); 
-
-            // $this->db->group_by('checkname.classID');  
-            // $this->db->last_query('checkname.checknameID'); 
-
             $this->db->join('class', 'class.classID = checkname.classID');
-
-            // $this->db->select('studentID');
-            // $this->db->group_by('checkname.checknameID'); 
             $this->db->where('checkname.studentID', $studentID);
             $this->db->where('class.courseID', $courseID);
-            
-
             $result = $this->db->get();
             return $result->result();
         }

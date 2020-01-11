@@ -123,10 +123,17 @@
                     'message' => ''
                 ], REST_Controller::HTTP_CONFLICT);
             }
-
-            
-            
         }
 
+            function getupdate_userid_get(){
+                $user_id = $this->get('user_id');
+                $result = $this->admin_showuser_model->getupdate_userid_lecturers($user_id);
+                $this->response([
+                    'status' => true,
+                    'response' => $result
+                ],REST_Controller::HTTP_OK);
+            }
+
+            
        
     }

@@ -138,8 +138,8 @@
             $startcheck = $this->post('startcheck');
             $endcheck = $this->post('endcheck');
 
-            $resultchackdate = $this->lecturers_model->chackdatacreateclassbyTeachs($courseID,$startdate,$roomID);
-            if(!$resultchackdate == $courseID && !$resultchackdate == $startdate && !$resultchackdate == $roomID){
+            $resultchackdate = $this->lecturers_model->chackdatacreateclassbyTeachs($courseID,$starttime,$roomID);
+            // if(!$resultchackdate == $courseID && !$resultchackdate == $roomID){
                 $data = array(
                     "courseID"=> $courseID,
                     'classID' => $this->post('classID'),
@@ -153,12 +153,12 @@
                 $result = $this->lecturers_model->insertdatacreateclassbyTeachs($data);
                 $this->response($resultchackdate); 
                 
-            }else{
-                $this->response([
-                    'status' => false,
-                    'message' => ''
-                ], REST_Controller::HTTP_CONFLICT);
-            }
+            // }else{
+            //     $this->response([
+            //         'status' => false,
+            //         'message' => ''
+            //     ], REST_Controller::HTTP_CONFLICT);
+            // }
 
             
         }

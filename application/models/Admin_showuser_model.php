@@ -60,6 +60,23 @@
             return $result;
         }
 
+        //getbefor
+        function getupdate_userid_lecturers($user_id){
+            $this->db->select("users.user_id,users.roleID,lecturers.lecturerID, lecturers.prefix, lecturers.firstName, lecturers.lastName, lecturers.email, lecturers.phoneNumber");
+            $this->db->from('users');
+            $this->db->where('users.user_id', $user_id);
+            $this->db->join('lecturers', 'lecturers.user_id = users.user_id');
+            $result = $this->db->get();
+            return $result->result();
+        }
+
+        //get_update_lecturers
+        function post_update_userid_lecturers($data){
+            $this->db->where('user_id',$data['user_id']);
+            $this->db->update('users',$data);
+            $result = $this->db->get('users');
+            return $result;
+        }
        
     }
 ?>
